@@ -1,5 +1,5 @@
 import {app} from './app.js'
-
+const PORT = process.env.PORT || 5000;
 app.get("/",(req,res)=>{
     res.status(200).json({
         message:'Hello World!'
@@ -9,6 +9,6 @@ app.get("/",(req,res)=>{
 app.get("/login",(req,res)=>{
     res.send("Hello From Login")
 })
-app.listen(process.env.PORT,()=>{
-    console.log(`NodeJS Server Started at port no: ${process.env.PORT}`)
+app.listen(PORT,()=>{
+    console.log(`NodeJS Server Started at port no:${PORT} `)
 })
