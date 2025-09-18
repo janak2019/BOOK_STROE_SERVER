@@ -10,7 +10,7 @@ connectDB()
 
 // Allow requests from specific frontend origin
 app.use(cors({
-  origin: "http://localhost:5173","https://bookstore-client-tau.vercel.app" // frontend URL
+  origin: ["http://localhost:5173","https://bookstore-client-tau.vercel.app"], // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // allow cookies/auth headers
 }));
