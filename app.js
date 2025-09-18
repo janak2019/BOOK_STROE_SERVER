@@ -2,13 +2,15 @@ import express from 'express'
 import 'dotenv/config'
 import {connectDB} from './database/index.js'
 import cors from 'cors'
+import {User} from'./models//userModel.js'
 
 export const app = express()
 connectDB()
 
+
 // Allow requests from specific frontend origin
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL
+  origin: "http://localhost:5173","https://bookstore-client-tau.vercel.app" // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // allow cookies/auth headers
 }));
