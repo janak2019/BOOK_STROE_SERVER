@@ -8,19 +8,19 @@ import {
 } from "../controller/bookController.js";
 
 const router = express.Router()
-// 📚 Get all books
+// Get all books
 router.get("/", getAllBooks);
 
-// 📘 Get single book by ID
+//  Get single book by ID
 router.get("/:id", getBookById);
 
-// ➕ Add new book
+//  Add new book
 router.post("/", addBook);
 
-// ✏️ Update book
+//  Update book
 router.put("/:id", updateBookById);
 
-// ❌ Delete book
+//  Delete book
 router.delete("/:id", deleteBook);
 
 
