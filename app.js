@@ -2,48 +2,35 @@ import express from 'express'
 import 'dotenv/config'
 import {connectDB} from './database/index.js'
 import cors from 'cors'
-import {User} from'./models//userModel.js'
+import bookRouter from './routes/bookRouter.js'
+import cookieParser from 'cookie-parser'
+import { errorMiddleware } from './middlewares/errorMiddlewares.js'
 
-export const app = express()
-connectDB()
 
+
+export const app = express();
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 // Allow requests from specific frontend origin
 app.use(cors({
-  origin: "https://bookstore-client-tau.vercel.app", // frontend URL
+  origin: [process.env.FRONT_END_URL], // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // allow cookies/auth headers
 }));
 
+app.use("/api/v1/book",bookRouter);
 
-app.get("/jokes",(req,res)=>{
-  const jokes = [
-    {
-      id:1,
-      title:'First Joke',
-      content:'Joke1'
-    },
-    {
-      id:2,
-      title:'Another Joke',
-      content:'Joke1'
-    },
-    {
-      id:3,
-      title:'Third Joke',
-      content:'Joke1'
-    },
-    {
-      id:4,
-      title:'Fourth Joke',
-      content:'Joke1'
-    },
-    {
-      id:5,
-      title:'Fifth Joke',
-      content:'Joke1'
-    },
-    
-  ]
-  res.send(jokes)
-})
+connectDB();
+
+
+
+
+
+
+
+
+
+app.use(errorMiddleware);
