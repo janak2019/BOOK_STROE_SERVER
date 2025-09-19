@@ -30,7 +30,7 @@ export const getAllBooks = catchAsyncErrors(async (req, res, next) => {
         const books = await Book.find();
         res.status(200).json({
             success: true,
-            books
+            books,
         });
     } catch (error) {
         return next(new ErrorHandler("Internal server error", 500));

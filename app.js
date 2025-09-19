@@ -21,7 +21,7 @@ app.use(cors({
   credentials: true, // allow cookies/auth headers
 }));
 
-app.use("/api/books",bookRouter);
+app.use("/books",bookRouter);
 
 connectDB();
 
