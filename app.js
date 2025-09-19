@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:true}));
 
 // Allow requests from specific frontend origin
 app.use(cors({
-  origin: [process.env.FRONT_END_URL], // frontend URL
+  origin: ["https://bookstore-client-tau.vercel.app"], // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // allow cookies/auth headers
 }));
