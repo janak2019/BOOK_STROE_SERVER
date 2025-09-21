@@ -16,12 +16,12 @@ app.use(express.urlencoded({extended:true}));
 
 // Allow requests from specific frontend origin
 app.use(cors({
-  origin: ["https://bookstore-client-tau.vercel.app"], // frontend URL
+  origin: ["https://bookstore-client-liart.vercel.app"], // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true, // allow cookies/auth headers
 }));
 
-app.use("/books",bookRouter);
+app.use("/api/v1/books",bookRouter);
 
 connectDB();
 

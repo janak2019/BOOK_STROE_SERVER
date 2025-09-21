@@ -68,25 +68,25 @@ export const deleteBook = catchAsyncErrors(async (req, res, next) => {
     }
 });
 // Update a book by ID  
+// UPDATE BOOK
 export const updateBookById = catchAsyncErrors(async (req, res, next) => {
-    try {
-        const { title, author, description, price, quantity} = req.body;
-        const book = await Book.findById(req.params.id);
-        if (!book) {
-            return next(new ErrorHandler("Book not found", 404));
-        }
-        book.title = title || book.title;
-        book.author = author || book.author;
-        book.description = description || book.description;
-        book.price = price || book.price;
-        book.quantity = quantity || book.quantity;
-        await book.save();
-        res.status(200).json({
-            success: true,
-            message: "Book updated successfully",
-            book
-        });
-    } catch (error) {
-        return next(new ErrorHandler("Internal server error", 500));
-    }
-}); 
+    const { title, author, description, price, quantity } = req.body;
+
+    const book = await Book.findById(req.params.id);
+    if (!book) return next(new ErrorHandler("Book not found", 404));
+
+    // Only update if value is provided
+    if (title !== undefined) book.title = title;
+    if (author !== undefined) book.author = author;
+    if (description !== undefined) book.description = description;
+    if (price !== undefined) book.price = price;
+    if (quantity !== undefined) book.quantity = quantity;
+
+    await book.save();
+
+    res.status(200).json({
+        success: true,
+        message: "Book updated successfully",
+        book,
+    });
+});
