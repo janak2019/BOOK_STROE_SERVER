@@ -1,7 +1,7 @@
 import express from 'express'
-import {getAllUsers,registerNewAdmin} from "../controllers/userControllers.js"
+import {getAllUsers,registerNewAdmin} from "../controller/userController.js"
 import {isAuthenticated,isAuthorized} from "../middlewares/authMiddlewares.js"
-import { upload } from '../controllers/multer.Controller.js'
+import { upload } from '../controller/multerController.js'
 
 const router = express.Router()
 

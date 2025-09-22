@@ -1,6 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
+
 const userSchema = new mongoose.Schema({
-        name:{
+    name:{
         type:String,
         required: true,
         trim : true
@@ -53,5 +56,28 @@ const userSchema = new mongoose.Schema({
         timestamps:true
 }
 )
+userSchema.methods.generateVerificationCode = function(){
+    function generateRandomFiveDigitNumber(){
+        const firstDigit = Math.floor(Math.random() * 9) + 1; // Ensure the first digit is not zero
+        const otherDigits = Math.floor(Math.random() * 10000).toString().padStart(4,0)
+        return parseInt(firstDigit + otherDigits);
+    }
+    const verificationCode = generateRandomFiveDigitNumber();
+    this.verificationCode = verificationCode;   
+    this.verificationCodeExpire = Date.now() + 15  * 60 * 1000; // 15 minutes from now
+    return verificationCode;
+}
+userSchema.methods.getJwtToken = function(){
+    return  jwt.sign({id:this._id}, process.env.JWT_SECRET_KEY,{
+        expiresIn: process.env.JWT_EXPIRE
+    })
+}
+userSchema.methods.getResetPasswordToken = function(){
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+    this.resetPasswordExpire = Date.now() + 15 * 60 * 1000; // 15 minutes from now
+    return resetToken;  
+}
 
-export const User = mongoose.model("User",userSchema)
+
+export const User  = mongoose.model("User",userSchema)

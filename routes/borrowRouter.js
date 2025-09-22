@@ -1,5 +1,5 @@
 import express from "express";
-import { borrowedBooks, getBorrowedBooksForAdmin, recordBorrowedBook, returnBorrowedBook } from "../controllers/borrowController.js";
+import { borrowedBooks, getBorrowedBooksForAdmin, recordBorrowedBook, returnBorrowedBook } from "../controller/borrowController.js";
 import { isAuthenticated,isAuthorized } from "../middlewares/authMiddlewares.js";
 
 
